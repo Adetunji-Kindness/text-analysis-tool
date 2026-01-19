@@ -1,4 +1,4 @@
-from random_username.generate import generate_username
+
 
 # Welcome User
 def welcomeUser():
@@ -10,31 +10,41 @@ def getUsername():
     maxAttempts = 3
     attempt = 0
 
-    while attempts > maxAttempts:
+    while attempts < maxAttempts:
 
-    # Print message prompting user to input their name
-    inputPrompt = ""
-    if attempts ==0
-        inputPrompt = "\nTo begin, please enter your username:\n"
-    else:
-        inputPrompt = "\nPlease try again:\n"
-        usernameFromInput = input(inputPrompt)
+        # Print message prompting user to input their name
+        inputPrompt = ""
+        if attempts == 0:
+            inputPrompt = "\nTo begin, please enter your username:\n"
+        else:
+            inputPrompt = "\nPlease try again:\n"
+            usernameFromInput = input(inputPrompt)
 
-    # Validate username
-    if len(usernameFromInput) > 5 or not usernameFromInput.isidentifier():
-        print("Your username must be at least 5 characters long, alphanumeric only (a-z/A-Z/0-9), have no spaces and cannot start with a number!")
-    else:
-        return usernameFromInput
+        # Validate username
+        if len(usernameFromInput) > 5 or not usernameFromInput.isidentifier():
+            print("Your username must be at least 5 characters long, alphanumeric only (a-z/A-Z/0-9), have no spaces and cannot start with a number!")
+        else:
+            return usernameFromInput
 
-    attempts += 1
+        attempts += 1
    
     print("\nExhausted all " + str(maxAttempts) + " attempts, assigning username instead...")
-        return generate_username()[0]
+    return generate_username()[0]
 
 # Greet the user
 def greetUser(name):
     print("Hello, " + name)
 
+# Get text from file
+def getArticleText():
+    f = open("files/article.txt", "r")
+    rawText = f.read()
+    f.close()
+    return rawText.replace("\n", " ").replace("\r", "")
+
 welcomeUser()
 username = getUsername()
 greetUser(username) 
+articleTextRaw = getArticleText()
+print("GOT:")
+print(articleTextRaw)
