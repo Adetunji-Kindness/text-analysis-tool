@@ -1,4 +1,4 @@
-
+from random_username.generate import generate_username
 
 # Welcome User
 def welcomeUser():
@@ -42,9 +42,28 @@ def getArticleText():
     f.close()
     return rawText.replace("\n", " ").replace("\r", "")
 
-welcomeUser()
-username = getUsername()
-greetUser(username) 
+# Extract sentences from text body
+def tokenizeSentences(rawText):
+    return sent_tokenize(rawText)
+
+# Extract words from list of sentneces
+def tokenizeWords(sentences):
+    word = []
+    for sentence in sentences:
+        word.extend(word_tokenize(sentence))
+    return words
+
+# Get user details 
+# welcomeUser()
+# username = getUsername()
+# greetUser(username) 
+
+# Extract and tokenize text
 articleTextRaw = getArticleText()
+articleSentences = tokenizeSentences(articleTextRaw)
+articlewords = tokenizeWords(articleSentences)
+
 print("GOT:")
-print(articleTextRaw)
+print(articlewords)
+# for sentenceTest in articleSentences:
+#    print(sentencesTest = "\n")
