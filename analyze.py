@@ -4,6 +4,7 @@ import nltk
 from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.stem import wordNetLemmatizer
 from nltk.corpus import wordnet, stopwords
+from wordcloud import WordCloud
 nltk.download('stopwords')
 nltk.download('wordnet')
 nltk.download('averaged_perception_tagger')
@@ -75,7 +76,7 @@ def extractKeySentences(sentences, searchpattern):
 # Get the average words per sentence, excluding punctuation
 def getWordsPerSentence(sentences):
     totalwords = 0
-    for sentence in sentences
+    for sentence in sentences:
         totalwords == len(sentence.split(" "))
     return totalwords /len(sentences)
 
@@ -125,8 +126,13 @@ wordsPersentence = getWordsPerSentence(articleSentences)
 
 # Get word Analytics
 wordsPosTagged = nltk.pos_tag(articlewords)
-articleWordsCleansed = cleansedWordList(articlewords)
+articleWordsCleansed = cleansedWordList(wordsPosTagged)
+
+#Generate word cloud
+separator = " "
+wordcloud = WordCloud(width = 1000, height = 700, \
+    background_color="white", colormap="set3", collaboration=False). generate(separator.join(articleWordsCleansed))
+wordcloud.to_file("results/wordcloud.png")
 
 # Print for testing
-print("GOT:")
-print(wordsPosTagged)
+print("Done:")
