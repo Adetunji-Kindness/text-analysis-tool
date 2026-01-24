@@ -7,12 +7,48 @@ def extractBasicInfo(data):
         if key in data:
             basicInfo[key] = data[key]
         else:
-            basicInfo[key] = ""
+            basicInfo[key] = ''
     return basicInfo
 
-def getCompanyStockInfo(tickerSymbol):
-    company = yf.Ticker(tickerSymbol)
-    basicInfo = extractBasicInfo(company.info)
-    print(basicInfo)
+def getPriceHistory(company):
+    historyDf = company.history(period='12mo')
+    prices = historyOf['Open'].tolist()
+    dates = historyOf.index.strftime('%Y-%m-%d').tolist()
+    return {
+        'price': prices,
+        'date': dates
+    }
 
-getCompanyStockInfo("MSFT")
+def getEarningsDates(company):
+    earningsDatesDf = company.earnings_dates
+    allDates = earningsDatesDf.index.strftime('%y-%m-%d').tolist()
+    dateObjects = [datetime.strftime '%y-%m-%d' for date in allDates]
+    currentDate = datetime.now()
+    futureDates = [date.strftime('%Y-%m-%d') for date in dateObjects if date > currentDate]
+    return futureDates
+
+def getCompanyNews(company):
+    news = company.news
+    allNewsArticles = ()
+    for newsDict in newsList:
+        newsDictToAdd = {
+            'title': newsDict['title'],
+            'link': newsDict['link']
+        }
+        allNewsArticles.append(newsDictToAdd)
+    print(allNewsArticles)
+    return allNewsArticles
+
+
+
+def getCompanyStockInfo(tickerSymbol):
+    # Get data from YahooFinance API
+    company = yf.Ticker(tickerSymbol)
+
+    # Get basic info on company
+    basicInfo = extractBasicInfo(company.info)
+    PriceHistory = getPriceHistory(company)
+    FutureEarningsDate = eargetEarningsDates(company)
+    newsArticles = getCompanyNews(company)
+
+getCompanyStockInfo('MSFT')
