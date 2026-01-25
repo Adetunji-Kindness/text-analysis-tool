@@ -1,6 +1,6 @@
 # Importing flask module in the project is mandatory
 # An object of flask class is our WSGI application
-from flask import flask
+from flask import Flask
 
 # Flask constructor takes the name of
 # current module (_name_) as arument.
@@ -10,8 +10,12 @@ app = Flask(_name_)
 # which tells the application which URL should call
 # the associated function.
 @app.route('/health')
-def hello_world():
+def healthCheck():
     return 'Flask server is up and running'
+
+@app.route('/analyze-stock')
+def analyzeStock():
+    return {'data': 'Analysis comming soon'}
 
 # main driver function
 if _name_ == '_main_':
