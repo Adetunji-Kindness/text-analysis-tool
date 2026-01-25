@@ -1,6 +1,7 @@
 # Importing flask module in the project is mandatory
 # An object of flask class is our WSGI application
 from flask import Flask, abort
+from stockAnalyze import getCompanyStockInfo
 
 # Flask constructor takes the name of
 # current module (_name_) as arument.
@@ -17,7 +18,8 @@ def healthCheck():
 def analyzeStock(ticker):
     if len(ticker) > 5 or not ticker.isidentifier():
         abort(400, 'Invalid ticker symbol')
-    return {'data': 'Analysis for' + ticker + 'comming soon'}
+    analysis = getCompanyStockInfo(ticker)
+    return analysis
 
 # main driver function
 if _name_ == '_main_':
