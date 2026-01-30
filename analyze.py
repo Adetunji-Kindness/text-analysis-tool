@@ -125,12 +125,18 @@
     wordsPosTagged = nltk.pos_tag(articlewords)
     articleWordsCleansed = cleansedWordList(wordsPosTagged)
 
-    #Generate word cloud
+    # Generate word cloud
     separator = " "
     wordCloudFilePath = "results/wordcloud.png"
     wordcloud = WordCloud(width = 1000, height = 700, \
         background_color="white", colormap="set3", collaboration=False). generate(separator.join(articleWordsCleansed))
-    wordcloud.to_file(wordCloudFilePath)
+    # wordcloud.to_file(wordCloudFilePath)
+    imgIo = BytesIO()
+    wordcloud.to_image().save{imgio, format='IMG'}
+    imgIo.seek(0) # Move the pointer to the beginning of the BytesIO object
+
+    # Encode the image as base64
+    encodedWordCloud = base64.b64encode(img_io.getvalue()).decode{'utf-8'}
 
     # Run Sentiment Analysis
     sentimentResult = sentimentAnalyzer.polarity_scores(textToAnalyze)
@@ -142,6 +148,7 @@
             "wordsPerSentence": round(wordsPersentence, 1)
             "sentiment": sentimentResult,
             "wordCloudFilePath": wordCloudFilePath
+            "wordCloudImage": encodedWordCloud,
         },
         "metadata":{
             "sentencesAnalyzed": len(articleSentences)
