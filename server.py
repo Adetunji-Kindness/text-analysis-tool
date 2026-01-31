@@ -33,6 +33,15 @@ def analyzeStock(ticker):
     except: Exception as e: 
         print(f"Error running the stock analysis {0}")
         abort(500, 'Something went wrong running the stock analysis')
+    if len(ticker) > 5 or not ticker.isidentifier():
+        abort(400, 'Invalid ticker symbol')
+    try:
+        analysis = getCompanyStockInfo(ticker)
+    except NameError as e:
+        abort(404, e)
+    except Exception as e:
+        print(f"Error running the stock analysis: {e}")
+        abort(500, 'Something went wrong running the stock analysis.')
     return analysis
 
 @app.route('/analyze-text', methods=['POST'])
