@@ -10,6 +10,7 @@
     nltk.download('wordnet')
     nltk.download('averaged_perception_tagger')
     nltk.download('vader_lexicon')
+    nltk.download('punkt')
     wordLemmatizer = wordNetLemmatizer()
     stopwords = set(stopwords.words('english'))
     sentimentAnalyzer = SentimentIntensityAnalyzer()
